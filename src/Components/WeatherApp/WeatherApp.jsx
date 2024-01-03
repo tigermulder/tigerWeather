@@ -111,14 +111,14 @@ const WeatherApp = () => {
             <img src={humidity_icon} alt="" className='icon'/>
             <div className="data">
                 <div className="humidity-percent">{weatherData.humidity || 'N/A'}</div>
-                <div className="text">Humidity</div>
+                <div className="text">습도</div>
             </div>
         </div>
         <div className="element">
             <img src={wind_icon} alt="" className='icon'/>
             <div className="data">
                 <div className="wind-rate">{weatherData.windSpeed || 'N/A'}</div>
-                <div className="text">Wind Speed</div>
+                <div className="text">풍량</div>
             </div>
         </div>
       </div>
