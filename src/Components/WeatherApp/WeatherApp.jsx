@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './WeatherApp.css';
 import axios from 'axios';
-
 import clear_icon from '../Assets/clear.png';
 import cloud_icon from '../Assets/cloud.png';
 import drizzle_icon from '../Assets/drizzle.png';
@@ -21,41 +20,40 @@ const WeatherApp = () => {
     location: null,
     weatherIcon: null,
   });
-
   const cityInputRef = useRef();
-  useEffect(() => {
-    // 컴포넌트가 처음 렌더링될 때 서울의 날씨 정보를 가져옴
-    search('Seoul');
-  }, []);
 
-  const search = async (cityName) => {
+  async function fetchData(cityName){
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=Metric&appid=${api_key}`;
-      let response = await axios.get(url);
-      let data = response.data;
-
+      let response = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=Metric&appid=${api_key}`;
+      let jsonData = await axios.get(response);
+      let data = jsonData.data;
       const { main, wind, name, weather } = data;
-
-      if (main && wind && name && weather && weather[0] && weather[0].icon) {
-        setWeatherData({
-          humidity: `${main.humidity} %`,
-          windSpeed: `${Math.floor(wind.speed)} Km/h`,
-          temperature: `${Math.floor(main.temp)}°c`,
-          location: name,
-          weatherIcon: weather[0].icon,
-        });
-
-        // 날씨 아이콘 업데이트
-        updateWeatherIcon(weather[0].icon);
-      } else {
-        console.error("API에서 받은 데이터 구조가 유효하지 않습니다.");
-      }
+      setWeatherData({
+        humidity: `${main.humidity} %`,
+        windSpeed: `${Math.floor(wind.speed)} Km/h`,
+        temperature: `${Math.floor(main.temp)}°c`,
+        location: name,
+        weatherIcon: weather[0].icon,
+      });
+      // 날씨 아이콘 업데이트
+      updateWeatherIcon(weather[0].icon);
     } catch (error) {
-      console.error("데이터를 가져오는 중 오류 발생:", error);
+      if (error.response) {
+        // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+        console.log(error.response.status);
+      } else if (error.request) {
+        // 요청이 전송되었지만, 응답이 수신되지 않았습니다. 
+        // 'error.request'는 브라우저에서 XMLHtpRequest 인스턴스이고,
+        // node.js에서는 http.ClientRequest 인스턴스입니다.
+        console.log(error.request);
+      } else {
+        // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+        console.log('Error', error.message);
+      }
     }
-  };
+  }
 
-  const updateWeatherIcon = (iconCode) => {
+  function updateWeatherIcon(iconCode){
     switch (iconCode) {
       case "01d":
       case "01n":
@@ -85,11 +83,16 @@ const WeatherApp = () => {
         setWicon(clear_icon);
         break;
     }
-  };
+  }
+
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링될 때 서울의 날씨 정보를 가져옴
+    fetchData('Seoul');
+  }, []);
 
   const handleSearch = () => {
     const cityName = cityInputRef.current.value;
-    search(cityName);
+    fetchData(cityName);
   };
 
   return (
