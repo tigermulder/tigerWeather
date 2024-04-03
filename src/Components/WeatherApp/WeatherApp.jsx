@@ -23,7 +23,6 @@ const WeatherApp = () => {
   });
 
   const cityInputRef = useRef();
-
   useEffect(() => {
     // 컴포넌트가 처음 렌더링될 때 서울의 날씨 정보를 가져옴
     search('Seoul');

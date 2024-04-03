@@ -1,41 +1,43 @@
 .container{
-    width: 607px;
-    height: 829px;
-    margin: 75px auto;
-    border-radius: 12px;
+    max-width:600px;
+    width:100%;
+    padding: 6vh 0;
+    margin: 0 auto;
     background-image: linear-gradient(180deg, #130754 0%, #3b2f80 100%);
 }
 .top-bar{
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 14px;
-    padding-top: 60px;
 }
 .top-bar input{
     display: flex;
-    width: 362px;
-    height: 78px;
+    width: 60%;
+    height: 8vh;
+    min-height: 55px;
     background: #ebfffc;
     border: none;
     border-radius: 40px;
     padding-left:40px;
     color: #626262;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
 }
 .search-icon{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 78px;
-    height: 78px;
+    width: 12.5%;
+    height: 8.3vh;
+    min-height: 55px;
     background: #ebfffc;
     border-radius: 40px;
     cursor: pointer;
 }
 .wearther-image{
-    margin-top: 29px;
+    margin-top: 3vh;
     display: flex;
     justify-content: center;
 }
@@ -43,7 +45,7 @@
     display: flex;
     justify-content: center;
     color: #fff;
-    font-size: 120px;
+    font-size: 100px;
     font-weight: 400;
 }
 .weather-location{
@@ -54,7 +56,7 @@
     font-weight: 400;
 }
 .data-container{
-    margin-top: 50px;
+    margin-top: 4vh;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -66,11 +68,11 @@
     gap: 12px;
 }
 .data{
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 400;
 }
 .text{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
 }
 .icon{
